@@ -1,3 +1,5 @@
+# Projet : De l'Image au Cluster (Workflow IaC)
+
 ------------------------------------------------------------------------------------------------------
 Introduction
 ------------------------------------------------------------------------------------------------------
@@ -7,8 +9,8 @@ Ce projet démontre l'automatisation complète du cycle de vie d'une app web per
 Architecture Cible
 -------------------------------------------------------------------------------------------------------
 L'architecture repose sur un cluster K3d composé de :
-1 - Noeud Master (Control-plane).
-2 - Noeud Workers (Agents).
+* **1Noeud Master (Control-plane).
+* **2Noeud Workers (Agents).
 
 On va donc mettre en place :
 - Packer : création d'une image Docker contenant index.html.
