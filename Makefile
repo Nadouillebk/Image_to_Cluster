@@ -15,6 +15,8 @@ import:
 deploy:
 	@echo "--- Déploiement avec Ansible ---"
 	ansible-playbook deploy.yml
+	@echo "--- 🔄 Rafraîchissement des pods ---"
+	kubectl rollout restart deployment my-nginx-web
 
 clean:
 	@echo "--- Nettoyage ---"
