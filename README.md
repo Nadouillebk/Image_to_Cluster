@@ -24,7 +24,7 @@ Guide d'utilisation
 Pour faciliter l'évaluation, j'ai créé un script d'automatisation totale. Une seule commande suffit pour tout installer et déployer.
 1. Déploiement Initial
 Exécutez le script suivant à la racine du projet :
-> ./setup_and_run.sh
+`./setup_and_run.sh`
 
 Ce script s'occupe de :
 1. Supprimer tout ancien cluster pour garantir un environnement propre.
@@ -40,7 +40,7 @@ Grâce au mapping réseau natif de K3d, l'application est immédiatement accessi
 Développement Continu
 -------------------------------------------------------------------------------------------------------
 Si vous modifiez le contenu du fichier index.html (changement de couleur du sol, texte), il n'est pas nécessaire de relancer le script initial. Utilisez simplement :
->make all
+`make all`
 
 Le Makefile reconstruira l'image, l'importera et forcera un rollout restart du déploiement pour appliquer les changements instantanément sans couper l'accès réseau.
 
