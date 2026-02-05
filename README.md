@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------------------------
 Introduction
 ------------------------------------------------------------------------------------------------------
-L’objectif est de comprendre comment des outils d’Infrastructure as Code permettent de passer d’un artefact applicatif maîtrisé à un déploiement cohérent et automatisé sur une plateforme d’exécution.
+Ce projet démontre l'automatisation complète du cycle de vie d'une app web personnalisée sur Kubernetes. L'objectif est de passer d'un fichier index.html à une infrastructure résiliente et accessible, en utilisant les principes de IaC.
   
 -------------------------------------------------------------------------------------------------------
 Architecture Cible
@@ -11,34 +11,36 @@ L'architecture repose sur un cluster K3d composé de :
 2 - Noeud Workers (Agents).
 
 On va donc mettre en place :
-Packer : pour la création d'une image Docker basée sur Nginx incluant directement notre index.html.
-Ansible : pour l'orchestration du déploiement des ressources sur Kubernetes.
-K3d : pour simuler un environnement Kubernetes multi-noeuds léger dans GitHub Codespaces.
-Makefile : pour automatiser l'intégralité du workflow.
+- Packer : création d'une image Docker contenant index.html.
+- Ansible : orchestration du déploiement (Deployment & Service NodePort).
+- Makefile : automatisation des tâches répétitives (Build, Import, Deploy).
+- K3d : pilotage du cluster avec mapping de port permanent pour un accès direct.
 
 -------------------------------------------------------------------------------------------------------
 Guide d'utilisation
 -------------------------------------------------------------------------------------------------------
-Grâce au Makefile, l'intégralité du processus est automatisé.
+Pour faciliter l'évaluation, j'ai créé un script d'automatisation totale. Une seule commande suffit pour tout installer et déployer.
+1. Déploiement Initial
+Exécutez le script suivant à la racine du projet :
+> ./setup_and_run.sh
 
-1. Pré-requis
-Les outils (Packer, Ansible, K3d) doivent être installés dans l'environnement.
+Ce script s'occupe de :
+1. Supprimer tout ancien cluster pour garantir un environnement propre.
+2. Créer le cluster avec un mapping de port permanent (8081 -> 30081).
+3. Lancer le make all (Packer Build -> K3d Import -> Ansible Deploy).
 
-2. Déploiement complet
-Exécutez la commande suivante pour construire l'image, l'importer et la déployer :
+Accès à l'application
+Grâce au mapping réseau natif de K3d, l'application est immédiatement accessible sans commande supplémentaire :
+1. Allez dans l'onglet PORTS de Codespaces.
+2. Ouvrez l'URL associée au port 8081.
+
+-------------------------------------------------------------------------------------------------------
+Développement Continu
+-------------------------------------------------------------------------------------------------------
+Si vous modifiez le contenu du fichier index.html (changement de couleur du sol, texte), il n'est pas nécessaire de relancer le script initial. Utilisez simplement :
 >make all
 
-3. Vérification
-On vérifie que les ressources sont bien déployées :
->kubectl get all
-
-4. Accès à l'application
-Pour visualiser le rendu final :
-
-On lance le port-forward : 
->kubectl port-forward svc/my-nginx-service 8081:80.
-
-On ouvre ensuite le port 8081 dans l'onglet de Codespaces.Cela nos permet d'obtenir notre page index.html.
+Le Makefile reconstruira l'image, l'importera et forcera un rollout restart du déploiement pour appliquer les changements instantanément sans couper l'accès réseau.
 
 -------------------------------------------------------------------------------------------------------
 Troubleshooting
@@ -53,3 +55,6 @@ Pendant cet atelier, j'ai rencontré et résolu les défis techniques suivants :
 
 - Namespace manquant : erreur lors du déploiement du service via Ansible.
 - Solution : féfinition du namespace: default dans le playbook deploy.yml.
+
+- Mapping Réseau : le mapping réseau ne se faisait plus quand on relançait le make.
+- Solution : remplacement du port-forward manuel par un mapping de port permanent au niveau du cluster (-p 8081:30081@agent:0) pour une meilleure expérience utilisateur.
