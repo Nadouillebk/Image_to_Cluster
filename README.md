@@ -47,14 +47,10 @@ Troubleshooting
 -------------------------------------------------------------------------------------------------------
 Pendant cet atelier, j'ai rencontré et résolu les défis techniques suivants :
 
-- Conflit de clés GPG (Yarn) : le dépôt Yarn bloquait les màj système apt.
-- Solution : importat manuel de la clef publique 62D54FD4003F6525.
+- Conflit de clés GPG (Yarn) : le dépôt Yarn bloquait les màj système apt. Solution : importat manuel de la clef publique 62D54FD4003F6525.
 
-- Bibliothèque Python Kubernetes : Ansible ne pouvait pas communiquer avec l'API Kubernetes.
-- Solution : installation du paquet système python3-kubernetes pour contourner les restrictions des environnements gérés (PEP 668).
+- Bibliothèque Python Kubernetes : Ansible ne pouvait pas communiquer avec l'API Kubernetes. Solution : installation du paquet système python3-kubernetes pour contourner les restrictions des environnements gérés (PEP 668).
 
-- Namespace manquant : erreur lors du déploiement du service via Ansible.
-- Solution : féfinition du namespace: default dans le playbook deploy.yml.
+- Namespace manquant : erreur lors du déploiement du service via Ansible. Solution : féfinition du namespace: default dans le playbook deploy.yml.
 
-- Mapping Réseau : le mapping réseau ne se faisait plus quand on relançait le make.
-- Solution : remplacement du port-forward manuel par un mapping de port permanent au niveau du cluster (-p 8081:30081@agent:0) pour une meilleure expérience utilisateur.
+- Mapping Réseau : le mapping réseau ne se faisait plus quand on relançait le make. Solution : remplacement du port-forward manuel par un mapping de port permanent au niveau du cluster (-p 8081:30081@agent:0) pour une meilleure expérience utilisateur.
