@@ -37,8 +37,8 @@ Pour visualiser le rendu final :
 
 On lance le port-forward : 
 >kubectl port-forward svc/my-nginx-service 8081:80.
-On ouvre ensuite le port 8081 dans l'onglet de Codespaces.
-Cela nos permet d'obtenir notre page index.html.
+
+On ouvre ensuite le port 8081 dans l'onglet de Codespaces.Cela nos permet d'obtenir notre page index.html.
 
 -------------------------------------------------------------------------------------------------------
 Troubleshooting
