@@ -35,6 +35,7 @@
           kind: Service
           metadata:
             name: my-nginx-service
+            namespace: default
           spec:
             type: NodePort
             selector:
